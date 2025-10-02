@@ -1,0 +1,11 @@
+{
+  "gridSize": 20,
+  "tileCount": 20,
+  "initialBaseSpeed": 1,
+  "initialSpeedLevel": 2,
+  "speedLevelMax": 7,
+  "scorePerSpeedLevel": 5,
+  "autoLevelUpEnabled": true,
+  "wrapModeDefault": false,
+  "obstacleCount": 12
+}

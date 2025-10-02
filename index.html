@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>贪吃蛇游戏</h1>
+            <div class="score-container">
+                <span>上次分数: </span><span id="last-score">0</span>
+                <span style="margin-left:12px;">本次分数: </span><span id="score">0</span>
+                <button id="toggle-changelog-btn" class="changelog-toggle">游戏说明</button>
+            </div>
+        </div>
+        
+        <!-- 顶部工具栏：控制按钮 + 穿墙模式 -->
+        <div class="top-toolbar">
+            <div class="controls">
+                <button id="start-btn">开始游戏</button>
+                <button id="pause-btn">暂停</button>
+                <button id="restart-btn">重新开始</button>
+            </div>
+            <div class="boundary-control">
+                <label><input type="checkbox" id="wrap-toggle"> 穿墙模式</label>
+            </div>
+        </div>
+        
+        <canvas id="game-board" width="400" height="400"></canvas>
+        
+        <!-- 移动端方向按钮（贴近画布） -->
+        <div id="mobile-controls" class="mobile-controls" aria-label="方向按钮">
+            <button id="btn-up" class="dir-btn dir-up" aria-label="上">↑</button>
+            <button id="btn-left" class="dir-btn dir-left" aria-label="左">←</button>
+            <button id="btn-right" class="dir-btn dir-right" aria-label="右">→</button>
+            <button id="btn-down" class="dir-btn dir-down" aria-label="下">↓</button>
+        </div>
+        
+        <div class="speed-control">
+            <label for="speed-slider">生效速度: </label>
+            <input type="range" id="speed-slider" min="1" max="7" value="1" class="slider">
+            <span id="speed-value">1</span>
+        </div>
+        
+        <div id="game-over" class="hidden">
+            <h2>游戏结束!</h2>
+            <p>本次分数: <span id="final-score">0</span></p>
+            <button id="play-again-btn">再玩一次</button>
+        </div>
+        
+        <div id="pause-menu" class="hidden">
+            <h2>游戏暂停</h2>
+            <div class="pause-buttons">
+                <button id="continue-btn">继续游戏</button>
+                <button id="restart-from-pause-btn">重新开始</button>
+            </div>
+            <div class="instructions">
+                <h3>操作说明:</h3>
+                <p>↑ ↓ ← → 方向键控制蛇的移动</p>
+                <p>P 键暂停/继续游戏</p>
+                <p>吃到红色食物可以增长身体和得分</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 游戏说明 -->
+    <div id="changelog" class="changelog hidden changelog-modal" aria-hidden="true">
+        <button id="changelog-close-btn" class="modal-close" aria-label="关闭说明">×</button>
+        <h2>游戏说明</h2>
+        <ul>
+            <li>操作：方向键控制移动；空格键暂停/继续；结束后空格重新开始。</li>
+            <li>速度：拖动滑块调整基础速度；每 +5 分自动升一级，最高 7 级；减速食物会降低 1 级。</li>
+            <li>边界：可切换“穿墙模式”，非穿墙模式撞墙会结束。</li>
+            <li>食物：红色普通（+1），金色大食物（+2），蓝色减速（降低一个速度等级）。</li>
+            <li>障碍：每吃满 5 个食物刷新一次障碍；撞到障碍结束。</li>
+            <li>目标：尽量吃食物提升分数和速度，避免撞到自己或障碍/墙。</li>
+        </ul>
+        <h3>提示</h3>
+        <ul>
+            <li>手机：点击方向按钮控制；可使用暂停菜单（继续或重开）。</li>
+            <li>加速与减速相互作用，生效速度为基础速度加上等级加成。</li>
+        </ul>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
