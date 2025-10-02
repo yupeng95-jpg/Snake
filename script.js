@@ -68,10 +68,10 @@ let velocityX = 0;
 let velocityY = 0;
 
 // 食物：支持多种类型
-// 类型：normal(普通+1分)、big(大食物+2分)、slow(减速3秒)
+// 类型：normal(普通+10分)、big(大食物+20分)、slow(减速3秒)
 const FOOD_TYPES = {
-    normal: { score: 1, color: 'red' },
-    big: { score: 2, color: '#FFB300' }, // 金色
+    normal: { score: 10, color: 'red' },
+    big: { score: 20, color: '#FFB300' }, // 金色
     slow: { score: 0, color: '#2196F3' } // 蓝色，触发减速效果
 };
 
@@ -166,12 +166,11 @@ function updateGame() {
         // 吃到食物计数（包含减速食物）
         foodsEaten++;
 
-        // 根据配置自动提升速度等级（每scorePerSpeedLevel+1级，最高speedLevelMax）
+        // 根据食物数量自动提升速度等级（每5个食物+1级，最高speedLevelMax）
         if (gameConfig.autoLevelUpEnabled) {
             const maxLevel = gameConfig.speedLevelMax ?? 7;
-            const step = gameConfig.scorePerSpeedLevel ?? 5;
             const baseLevel = gameConfig.initialSpeedLevel ?? 1;
-            speedLevel = Math.min(baseLevel + Math.floor(score / step), maxLevel);
+            speedLevel = Math.min(baseLevel + Math.floor(foodsEaten / 5), maxLevel);
         }
         // 减速食物：降低一个速度等级（不低于1）
         if (currentFood.type === 'slow') {
